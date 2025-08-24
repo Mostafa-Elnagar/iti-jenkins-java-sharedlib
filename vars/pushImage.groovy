@@ -1,13 +1,15 @@
 #!/usr/bin/env groovy
 
 def call(Map config = [:]) {
+    def registry   = config.registry ?: "docker.io"
     def imageName = config.imageName ?: 'java-app'
+    def namespace  = config.namespace ?: "mostafaelnagar"
     def imageTag = config.imageTag ?: 'latest'
-    def fullImageName = "${imageName}:${imageTag}"
+    def fullImage  = "${registry}/${namespace}/${imageName}:${imageTag}"
     
-    echo "Pushing Docker image: ${fullImageName}"
+    echo "Pushing Docker image: ${fullImage}"
     
-    sh "docker push ${fullImageName}"
+    sh "docker push ${fullImage}"
     
-    echo "Docker image pushed successfully: ${fullImageName}"
+    echo "Docker image pushed successfully: ${fullImage}"
 }

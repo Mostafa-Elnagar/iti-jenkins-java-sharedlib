@@ -13,7 +13,7 @@ class ImageOps implements Serializable {
         def credentialsId = config.credentialsId ?: 'docker-registry'
         
         if (credentialsId && credentialsId != '') {
-            withCredentials(
+            steps.withCredentials(
                 [
                     steps.usernamePassword(
                         credentialsId: credentialsId, usernameVariable: 'REGISTRY_USER',

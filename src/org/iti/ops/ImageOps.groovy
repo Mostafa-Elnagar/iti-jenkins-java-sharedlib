@@ -8,7 +8,7 @@ class ImageOps implements Serializable {
     ImageOps(steps) {
         this.steps = steps
     }
-    
+
     def loginRegistry(Map config = [:]) {
         def credentialsId = config.credentialsId ?: 'docker-registry'
         
@@ -38,9 +38,17 @@ class ImageOps implements Serializable {
         // Push image
         steps.pushImage(
             imageName: config.imageName ?: 'java-app',
-            imageTag: config.imageTag ?: 'latest',
+            imageTag: config.imageTag ?: 'latest'
         )
         
         steps.echo "Image build and push process completed successfully"
+    }
+    def logoutRegistry(Map config = [:]) {
+        try {
+            steps.sh "docker logout"
+            steps.echo "Successfully logged out from all registries"
+        } catch (Exception e) {
+            steps.echo "Warning: Logout failed: ${e.getMessage()}"
+        }
     }
 }

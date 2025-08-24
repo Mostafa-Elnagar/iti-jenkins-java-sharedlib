@@ -9,6 +9,7 @@ def call(Map config = [:]) {
     
     echo "Pushing Docker image: ${fullImage}"
     
+    sh "docker tag ${imageName}:${imageTag} ${fullImage}"
     sh "docker push ${fullImage}"
     
     echo "Docker image pushed successfully: ${fullImage}"

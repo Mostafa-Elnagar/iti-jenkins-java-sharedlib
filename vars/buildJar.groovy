@@ -3,7 +3,7 @@
 def call(Map config = [:]) {
     def goals = config.goals ?: 'clean package'
     def pomFile = config.pomFile ?: 'pom.xml'
-    def mavenTool = config.mavenTool ?: 'Maven'
+    def mavenTool = config.mavenTool ?: '/usr/share/maven'
     
     echo "Building JAR with Maven..."
     echo "Goals: ${goals}"

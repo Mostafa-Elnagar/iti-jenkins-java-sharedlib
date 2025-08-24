@@ -23,7 +23,6 @@ class ImageOps implements Serializable {
         // Login to registry
         if (config.credentialsId && config.credentialsId != '') {
             steps.loginRegistry(
-                registryUrl: config.registryUrl ?: 'docker.io',
                 credentialsId: config.credentialsId
             )
         }
@@ -32,7 +31,6 @@ class ImageOps implements Serializable {
         steps.pushImage(
             imageName: config.imageName ?: 'java-app',
             imageTag: config.imageTag ?: 'latest',
-            registryUrl: config.registryUrl ?: 'docker.io'
         )
         
         steps.echo "Image build and push process completed successfully"

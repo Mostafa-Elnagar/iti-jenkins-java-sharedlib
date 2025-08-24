@@ -21,7 +21,7 @@ class ImageOps implements Serializable {
                     )
                 ]
             ) {
-                steps.sh "echo ${REGISTRY_PASS} | docker login -u ${REGISTRY_USER} --password-stdin"
+                steps.sh 'echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin'
             }
             steps.echo "Successfully logged into registry Docker hub"
         } else {

@@ -13,7 +13,6 @@ class MavenOps implements Serializable {
         steps.echo "Starting Maven build process..."
         
         steps.buildJar(
-            mavenHome: config.mavenHome ?: 'Maven',
             goals: config.goals ?: 'clean package',
             pomFile: config.pomFile ?: 'pom.xml'
         )
@@ -25,7 +24,6 @@ class MavenOps implements Serializable {
         steps.echo "Running Maven tests..."
         
         steps.buildJar(
-            mavenHome: config.mavenHome ?: 'Maven',
             goals: 'test',
             pomFile: config.pomFile ?: 'pom.xml'
         )
@@ -37,7 +35,6 @@ class MavenOps implements Serializable {
         steps.echo "Installing Maven dependencies..."
         
         steps.buildJar(
-            mavenHome: config.mavenHome ?: 'Maven',
             goals: 'dependency:resolve',
             pomFile: config.pomFile ?: 'pom.xml'
         )

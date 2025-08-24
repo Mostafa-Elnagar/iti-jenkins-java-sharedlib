@@ -9,6 +9,21 @@ class ImageOps implements Serializable {
         this.steps = steps
     }
     
+    def loginRegistry(Map config = [:]) {
+        def credentialsId = config.credentialsId ?: 'docker-registry'
+        
+        if (credentialsId && credentialsId != '') {
+            withCredentials([usernamePassword(credentialsId: credentialsId, 
+                                        usernameVariable: 'REGISTRY_USER', 
+                                        passwordVariable: 'REGISTRY_PASS')]) {
+                steps.sh "echo ${REGISTRY_PASS} | docker login -u ${REGISTRY_USER} --password-stdin"
+            }
+            steps.echo "Successfully logged into registry Docker hub"
+        } else {
+            steps.echo "No credentials provided, skipping registry login"
+        }
+    }
+
     def buildAndPush(Map config = [:]) {
         steps.echo "Starting image build and push process..."
         
@@ -19,13 +34,6 @@ class ImageOps implements Serializable {
             dockerfile: config.dockerfile ?: 'Dockerfile',
             context: config.context ?: '.'
         )
-        
-        // Login to registry
-        if (config.credentialsId && config.credentialsId != '') {
-            steps.loginRegistry(
-                credentialsId: config.credentialsId
-            )
-        }
         
         // Push image
         steps.pushImage(

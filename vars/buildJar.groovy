@@ -15,9 +15,7 @@ def call(Map config = [:]) {
     }
     
     try {
-        withMaven(maven: mavenTool) {
-            sh "mvn -f ${pomFile} ${goals}"
-        }
+        sh "mvn -f ${pomFile} ${goals}"
         echo "JAR build completed successfully"
     } catch (Exception e) {
         echo "Error during Maven build: ${e.getMessage()}"

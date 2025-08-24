@@ -53,7 +53,6 @@ pipeline {
                     
                     // Build Maven project
                     sharedLib.mavenOps.buildProject(
-                        mavenHome: 'Maven',
                         goals: 'clean package',
                         pomFile: 'pom.xml'
                     )
